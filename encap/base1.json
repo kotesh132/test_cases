@@ -1,0 +1,75 @@
+{
+	"somConfig" : [
+		{
+			"numKseg" : 8,
+			"numDseg" : 8,
+			"numHway" : 2,
+			"ksegWidth" : 80,
+			"dsegWidth" : 96,
+			"numReadControllers" : 8,
+			"numWriteControllers" : 8,
+			"numHashControllers" : 8,
+			"numCamControllers" : 8,
+			"entriesPerTable" : 100,
+			"tcamConfig" : {
+				"numRow" : 2,
+				"numCol" : 8,
+				"words" : 1024,
+				"bits" : 80
+			},
+			"sramConfig" : {
+				"numSram" : 32,
+				"words" : 1024,
+				"bits" : 107
+			}
+		},
+		{
+			"numKseg" : 8,
+			"numDseg" : 8,
+			"numHway" : 2,
+			"ksegWidth" : 80,
+			"dsegWidth" : 96,
+			"numReadControllers" : 8,
+			"numWriteControllers" : 8,
+			"numHashControllers" : 8,
+			"numCamControllers" : 8,
+			"entriesPerTable" : 100,
+			"tcamConfig" : {
+				"numRow" : 2,
+				"numCol" : 8,
+				"words" : 1024,
+				"bits" : 80
+			},
+			"sramConfig" : {
+				"numSram" : 32,
+				"words" : 1024,
+				"bits" : 107
+			}
+		}
+	],
+	"pktConfig" : {
+		"pktsPerPath" : 1,
+		"byteVectorLength" : 2048,
+		"bitVectorLength" : 32,
+		"packetLength" : 2048,
+		"useBmv" : false,
+		"headerIds" : {
+			"pie_header" : 0,
+			"ethernet" : 1,
+			"ipv4" : 2,
+			"ipv6" : 3,
+			"tcp" : 4,
+			"udp" : 5,
+			"inner_ethernet" : 6,
+			"inner_ipv4" : 7,
+			"inner_ipv6" : 8,
+			"inner_tcp" : 9,
+			"inner_udp" : 10
+		},
+                "constraints" : [{}],
+		"excludePaths" : [".*parse_pie#parse_inner_ethernet.*"],
+		"includePaths" : [".*"]
+	},
+	"bmvServerIp" : "127.0.0.1",
+	"bmvServerPort" : 9090
+}

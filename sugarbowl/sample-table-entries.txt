@@ -1,0 +1,409 @@
+The log output from simple_switch is almost 2000 lines per packet.  I
+would recommend logging it to a file so you can open it in a text
+editor and search for things of interest.  Sample command line that
+causes simple_switch to append to log file 'ss-log.txt':
+
+    sudo simple_switch --log-file ss-log --log-flush -i 0@veth2 -i 1@veth4 -i 2@veth6 -i 3@veth8 -i 4@veth10 -i 5@veth12 -i 6@veth14 -i 7@veth16 sug_top.json
+
+Scapy packet to send:
+
+p1=Ether(src='00:11:22:33:44:55',dst='00:66:77:88:99:aa') / IP(src='10.5.7.8',dst='10.2.3.4') / TCP() / Raw('the quick brown fox')
+sendp(p1, iface='veth2')
+
+
+As long as ACI_TOR_MODE is #undef'd in includes/sug_p4features.h, this
+set of table entries will get that IPv4 unicast packet out with TTL
+decremented, and dest MAC and source MAC rewritten.
+
+table_add process_rmac_check.rmac_search rmac_hit 0 1 0 0x0066778899aa 0&&&0 => 5
+table_add process_post_tunnel_decap_fwd_mode.post_tunnel_decap_fwd_mode set_post_tunnel_decap_l3_fwd_mode 0&&&0 0&&&0 1&&&7 0&&&0 1&&&1 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 => 1 0 0 0 99
+table_add process_ipv4_dst_fib_lookup.ipv4_fib_dst_lpm dst_fib_hit_adj 0 10.2.3.4/32 => 0 0 0 0 0 0 0 0 0 0 0 0 0 0 25
+table_add dst_adjacency set_dst_l2_rw_adjacency 25 => 0xdae 0x00ffeeddccbb 0 0xe01
+
+table_add process_dst_vpc.dst_vpc_mbr process_dst_vpc.select_vpc_member 0xe01 => 0x7ae
+table_add process_dst_pc.dst_pc_cfg select_l2_pc_member 0x7ae 1 => 0xda 1
+table_add process_dst_pc.dst_pc_cfg select_l2_pc_member 0x7af 1 => 0xda 1
+table_add process_dst_port.dst_pc_mbr ig_set_dst_port_state 0xda => 0xf1 0 0 0 1 0 0
+
+table_add eg_dst_bd_state set_eg_dst_bd_state 0xdae => 0x201 0 0 0x2dad 0 0 0 0 0 0 0 0 0 0
+table_add process_mac_rewrite.smac_rewrite set_smac 0x201 => 0xc0febabed00d
+
+
+# Do this only if you want to enable the code that was once surrounded
+# by #ifdef ACI_TOR_MODE.  If you do not do this, or write 0 as the
+# result instead, then the behavior should be standalone mode.
+
+table_add CFG_ig_aci_tor_mode read_CFG_ig_aci_tor_mode => 1
+table_add CFG_eg_aci_tor_mode read_CFG_eg_aci_tor_mode => 1
+
+
+----------------------------------------------------------------------
+Something like this could be considered a 'recipe book' for L3 routing
+of IPv4 unicast packets, without ECMP, tunneling, or any other special
+kinds of forwarding.  Everything in <angle brackets> is a variable.
+In most cases the names I have used for variables corresponds with
+names in sug_top.p4.
+
+It is probably only complete for the special case where the rest of
+the tables have a default NoAction action that makes no changes to the
+packet or metadata if the table search results in a miss.  In the
+actual Sugarbowl ASIC, I would bet that most tables do not have such a
+default 'no op' action.
+
+I have left out the names of most of the search key fields and action
+parameters.  It would probably be somewhat more readable with those
+things included (at least once you know what those names mean).  Just
+refer to the sug_top.p4 source code for the tables right now.
+
+There are probably a dozen additional constraints on the input packet
+that I don't know all of yet.  For example:
+
+* IPv4 version=4.
+* IPv4 Header Length=5 (but most or all of the recipe may work for
+  larger header lengths when IPv4 options are present, too).
+* IPv4 header checksum should be correct, computed correctly from the
+  rest of the IPv4 header fields.
+* Source IP address should be unicast, not multicast (i.e. doesn't
+  have most significant 4 bits equal to 0xE).
+* Destination IP address should be unicast.
+* TTL should be at least 2.
+
+input packet:
+Ethernet dest MAC=<meta.l2.lkp_mac_da> ethertype=0x0800
+IPv4 DA=<meta.ipv4m.fib_da_key_addr> TTL=<ttl>
+
+table_add process_rmac_check.rmac_search rmac_hit 0 1 0 <meta.l2.lkp_mac_da> 0&&&0 => <pri1>
+table_add process_post_tunnel_decap_fwd_mode.post_tunnel_decap_fwd_mode set_post_tunnel_decap_l3_fwd_mode 0&&&0 0&&&0 1&&&7 0&&&0 1&&&1 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 => 1 0 0 0 <pri2>
+table_add process_ipv4_dst_fib_lookup.ipv4_fib_dst_lpm dst_fib_hit_adj 0 <meta.ipv4m.fib_da_key_addr>/32 => 0 0 0 0 0 0 0 0 0 0 0 0 0 0 <meta.l3.dst_adj_ptr>
+table_add dst_adjacency set_dst_l2_rw_adjacency <meta.l3.dst_adj_ptr> => <meta.dst_adj.bd> <meta.dst_adj.mac> 0 <meta.ingress.dst_ptr_or_idx>
+
+table_add process_dst_vpc.dst_vpc_mbr select_vpc_member <meta.ingress.dst_ptr_or_idx> => <meta.ingress.dst_vpc_idx>
+
+# TBD whether it is valid in a normal standalone config to use
+# meta.ingress.vpc_counce_en==1 for the dst_pc_cfg table entries.
+table_add process_dst_pc.dst_pc_cfg select_l2_pc_member <meta.ingress.dst_vpc_idx> 1 => <meta.ingress.dst_port_idx> 1
+table_add process_dst_pc.dst_pc_cfg select_l2_pc_member <meta.ingress.dst_vpc_idx>+1 1 => <meta.ingress.dst_port_idx> 1
+table_add process_dst_port.dst_pc_mbr ig_set_dst_port_state <meta.ingress.dst_port_idx> => <meta.ingress_sideband.ovector_idx> 0 0 0 <meta.ig_dst_port.is_local> <meta.ig_dst_port.is_vpc> 0
+
+table_add eg_dst_bd_state set_eg_dst_bd_state <meta.dst_adj.bd> => <meta.dst_bd.rmac_index> 0 0 0 0 0 0 0 0 0 0 0 0 0
+table_add process_mac_rewrite.smac_rewrite set_smac <meta.dst_bd.rmac_index> => <hdr.ethernet.srcAddr>
+
+output packet:
+
+output port=TBD (there is a way to control this by table entries, of
+course, but I haven't learned yet which table entries those are.  It
+might require more tables than those above)
+Ethernet source MAC=<hdr.ethernet.srcAddr> dest MAC=<meta.dst_adj.mac> ethertype=0x0800
+IPv4 TTL=<ttl>-1 other fields same as input packet
+
+
+Excerpts from code for some actions above:
+
+    action set_dst_l2_rw_adjacency(bit<14> bd, bit<48> mac,
+                                   bit<1> is_ptr, bit<13> ptr_or_idx)
+    {
+        meta.ingress.dst_ptr_or_idx = ptr_or_idx;
+        meta.ingress.dst_is_ptr = is_ptr;
+        meta.ig_tunnel.encap = FALSE;
+        meta.dst_adj.mac = mac;
+        meta.dst_adj.bd = bd;
+        //meta.dst_adj.adj_type = ADJ_TYPE_L2_RW;
+    }
+
+----------------------------------------------------------------------
+
+Below are some notes about how I arrived at this set of table entries.
+Basically just using debugging techniques and taking advantage of some
+knowledge of common techniques used in packet forwarding chips.
+
+Maybe the fewest table entries one needs to write in order for an
+Ethernet/IPv4 packet with normal unicast dest MAC address and unicast
+dest IP address to perform a longest prefix match search in the IPv4
+unicast FIB table.
+
+Note that for ternary fields, simple_switch_CLI expects the syntax
+<value>&&&<mask>, where in the mask 0 means a wildcard bit position, 1
+means an exact match bit position.
+
+You must supply a priority value for table entries that have at least
+one ternary field.  When there is only one entry in the table, this
+value doesn't matter much.  It is only if you have multiple entries
+matching the same packet that the priority values matter.
+
+The receive MAC table contains dest MAC addresses which, if a received
+packet has that dest MAC address, the packet will typically be L3
+routed rather than L2 bridged.
+
+post_tunnel_decap_fwd_mode makes the actual determination of whether
+the packet will be L3 routed or L2 bridged.  It is TCAM that matches
+on many flags about the packet, including whether it got a hit in the
+rmac table.
+
+
+
+----------------------------------------------------------------------
+
+
+######################################################################
+# IPv4 DA LPM table entry
+######################################################################
+
+# key contains 2 fields:
+# + meta.l3.fib_da_key_vrf - 0 in this example
+# + meta.ipv4m.fib_da_key_addr - 10.2.3.4/32 in this example
+
+# action dst_fib_hit_adj takes many parameters.  Note that not all of
+# them in the P4 source code are in the bmv2 JSON configuration file,
+# and only the ones in that JSON file are known to bmv2.  The ones in
+# the P4 source code but not in the JSON file are probably not in the
+# JSON because they are unused, and the p4c-bm2-ss compiler prints a
+# warning about them being removed because they are unused.
+
+# From looking at the bmv2 JSON config file for action
+# dst_fib_hit_adj, here are the fields it is probably expecting:
+
+#    0   bit<1> ep_bounce
+#    0   bit<16> class
+#    0   bit<16> epg
+#    0   bit<1> policy_incomplete
+#    0   bit<1> policy_applied
+#    0   bit<1> shared_service
+#    0   bit<1> dst_local
+#    0   bit<1> preserve_vrf
+#    0   bit<1> spine_proxy
+#    0   bit<1> sup_copy
+#    0   bit<1> da_sup_redirect
+#    0   bit<1> ttl_decrement_bypass
+#    0   bit<1> default_entry
+#   25   bit<16> adj_ptr
+
+table_add process_ipv4_dst_fib_lookup.ipv4_fib_dst_lpm dst_fib_hit_adj 0 10.2.3.4/32 => 0 0 0 0 0 0 0 0 0 0 0 0 0 25
+table_dump process_ipv4_dst_fib_lookup.ipv4_fib_dst_lpm
+
+Scapy packet to send:
+
+p1=Ether(src='00:11:22:33:44:55',dst='00:66:77:88:99:aa') / IP(src='10.5.7.8',dst='10.2.3.4') / TCP() / Raw('the quick brown fox')
+
+######################################################################
+
+# The packet never got looked up in that table.  At least one reason
+# is that the packet got a miss in the 'receive MAC' table, a table
+# where the packet's dest MAC address is looked up, which the control
+# plane populates with a list of MAC addresses configured on
+# interfaces of the router (could be only 1, could be different ones
+# on different interfaces).
+
+# In sug_top.p4, table is called rmac_search
+
+# Search key fields:
+
+#     0     meta.outer_src_bd.rmac_index   : exact;
+# We are trying to get an IPv4 packet through so 1 for ipv4.isValid(),
+# 0 for ipv6.isValid()
+#     1     hdr.ipv4.isValid()               : exact;
+#     0     hdr.ipv6.isValid()               : exact;
+# This is the dest MAC value we are going to send in a test packet.
+# 0x0066778899aa meta.l2.lkp_mac_da             : exact;
+# For ternary field, let us just program a wildcard value that matches
+# anything for now.  The value and mask are specified with the syntax
+# 'value&&&mask'
+#     0 0     meta.bypass_info.is_rmac_bypass: ternary;
+
+# There are no parameters for action rmac_hit
+
+# Since there is at least one ternary field, bmv2 is probably
+# implementing the table with a software-emulation TCAM, and so every
+# entry needs a priority value in the table_add command.  I will use 5
+# arbitrarily.  I don't know whether bmv2 uses high or lower numbers
+# for higher or lower priority of matching, but I only want 1 entry
+# right now so it shouldn't matter.
+
+table_add process_rmac_check.rmac_search rmac_hit 0 1 0 0x0066778899aa 0&&&0 => 5
+table_dump process_rmac_check.rmac_search
+
+
+That still wasn't enough to cause a search of table ipv4_fib_dst_lpm
+according to the log.
+
+Look through log to guess what else is missing.
+
+In control ingress block, ipv4_fib_dst_lpm is apply'd from
+process_ipv4_fib_da_key control block.  Shortly before that is
+process_src_mac_lookup control block call.
+
+That control block apply's table src_mac_hash, which I _do_ see in
+the log, so some if condition is going the wrong way after that, but
+before ipv4_fib_dst_lpm table.
+
+Here are the if conditions, with #define symbols showing numeric
+values afterwards in comments:
+
+            if (meta.ingress.l2_fwd_mode == L2_FWD_MODE_UC) {   // 0
+                if (meta.ingress.l3_fwd_mode == L3_FWD_MODE_ROUTE) {  // 1
+                    if (meta.l3.l3_type == L3TYPE_IPV4) {  // 1
+
+From searching through the log for l3.l3_type, I see always the value
+1 whenever it is mentioned.
+
+For ingress.l3_fwd_mode: always 0, which is either because it was
+assigned the symbolic value L3_FWD_MODE_BRIDGE=0, or because it was
+never assigned a value since the packet began processing.
+
+ingress.l2_fwd_mode: always 0
+
+Where is l3_fwd_mode assigned a value in P4 code?  Many places, so
+look for assignments to it with the value L3_FWD_MODE_ROUTE, the one
+we want.  Several of those, some for multicast and other packet types
+we aren't using here.
+
+control block process_post_tunnel_decap_fwd_mode's apply block looks
+relevant.
+
+It apply's table post_tunnel_decap_fwd_mode, which has many fields in
+it search key that show up in the log.  Among others, it shows:
+
+meta.l3.l3_type
+* l3.l3_type                       : 01  // L3TYPE_IPV4 - good
+
+Possible values for meta.l3.ip_da_type, I believe, where I see value 0
+= IP_UNICAST for this packet, which should be what we want.
+
+#define IP_UNICAST                             0
+#define IP_MULTICAST                           1
+#define IP_UNICAST_LL                          2
+#define IP_MULTICAST_LL                        3
+
+
+
+
+Try simple_switch with "--log-level debug" command line option to see
+if it shows different debug information.  In particular, I would love
+it if it showed the values it had for fields as they are compared
+during conditional expression evaluation, and also every time a field
+was modified.
+
+
+From looking at diff of 1 packet log from default "--log-level trace"
+and the "--log-level debug", debug gives less information than trace
+does.  I want 'trace verbose' or something like that.
+
+
+With some extra trace debug I added to print when conditional nodes
+were evaluated, I learned this:
+
+// node_320 -> true
+            if (meta.ingress.l2_fwd_mode == L2_FWD_MODE_UC) {   // 0
+
+// node_321 -> false
+                if (meta.ingress.l3_fwd_mode == L3_FWD_MODE_ROUTE) {  // 1
+                    if (meta.l3.l3_type == L3TYPE_IPV4) {  // 1
+
+
+After post_tunnel_decap_fwd_mode, the conditions executed are:
+
+I finally realized that all the code after apply'ing table
+post_tunnel_decap_fwd_mode is #ifdef'd out.  I think I need to add an
+entry to that table that causes l3_fwd_mode to be assigned a value of
+L3_FWD_MODE_ROUTE (1).
+
+Action set_post_tunnel_decap_l3_fwd_mode can do that, among others.
+
+action parameters:
+
+ 1 bit<2> l3_mode,
+ 0 bit<1> arp_unicast_mode,
+ 0 bit<1> rarp_unicast_mode,
+ 0 bit<1> nd_unicast_mode
+
+Search key fields:
+
+  0&&&0   meta.bypass_info.fwd_lookup_bypass    : ternary;
+  0&&&0   meta.l2.l2_da_type                    : ternary;
+  1&&&7   meta.l3.l3_type                       : ternary;
+  0&&&0   meta.l3.ip_da_type                    : ternary;
+  1&&&1   meta.l3.rmac_hit                      : ternary;
+  0&&&0   meta.l3.nd_type                       : ternary;
+  0&&&0   meta.src_bd.arp_req_unicast_mode_dis  : ternary;
+  0&&&0   meta.src_bd.arp_res_unicast_mode_dis  : ternary;
+  0&&&0   meta.src_bd.garp_unicast_mode_dis     : ternary;
+  0&&&0   meta.src_bd.rarp_req_unicast_mode_dis : ternary;
+  0&&&0   meta.src_bd.rarp_res_unicast_mode_dis : ternary;
+  0&&&0   meta.src_bd.uc_nd_sol_unicast_mode_dis: ternary;
+  0&&&0   meta.src_bd.mc_nd_adv_unicast_mode_dis: ternary;
+  0&&&0   meta.ig_tunnel.mc_tunnel_decap        : ternary;
+  0&&&0   meta.ig_tunnel.encap_flood            : ternary;
+  0&&&0   meta.src_bd.encap_flood_fwd_lkup_en   : ternary;
+  0&&&0   meta.src_bd.mpls_en                   : ternary;
+  0&&&0   meta.mplsm.topmost_non_null_label_ttl  : ternary;
+  0&&&0   meta.src_bd.ipv4_ucast_en             : ternary;
+  0&&&0   meta.src_bd.ipv4_mcast_en             : ternary;
+  0&&&0   meta.src_bd.ipv6_ucast_en             : ternary;
+  0&&&0   meta.src_bd.ipv6_mcast_en             : ternary;
+  0&&&0   meta.l3.lkp_ip_ttl                    : ternary;
+
+There are many ways to match this packet, but one way is to have
+
+meta.l3.l3_type == 1&&&7  (3-bit field)
+meta.l3.rmac_hit == 1&&&1 (1-bit field)
+all others wildcard (0&&&0)
+
+I will arbitrarily pick a priority value of 99
+
+table_add process_post_tunnel_decap_fwd_mode.post_tunnel_decap_fwd_mode set_post_tunnel_decap_l3_fwd_mode 0&&&0 0&&&0 1&&&7 0&&&0 1&&&1 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 0&&&0 => 1 0 0 0 99
+
+----------------------------------------------------------------------
+
+
+sudo gdb simple_switch
+set args --log-file ss-log --log-flush -i 0@veth2 -i 1@veth4 -i 2@veth6 -i 3@veth8 -i 4@veth10 -i 5@veth12 -i 6@veth14 -i 7@veth16 sug_top.hacked.json
+run
+
+Table entries so far, summarized in one place, in the relative order
+the packet is matched against them (there are many others that get a
+miss with default NoAction):
+
+# Variant after putting action dst_fib_hit_adj inside the control block
+table_add process_ipv4_dst_fib_lookup.ipv4_fib_dst_lpm process_ipv4_dst_fib_lookup.dst_fib_hit_adj 0 10.2.3.4/32 => 0 0 0 0 0 0 0 0 0 0 0 0 0 25
+
+----------------------------------------------------------------------
+
+control ingress
+  control process_ipv4_fib_da_key
+    table ipv4_fib_dst_lpm
+  control process_mc_fib_lookup
+    if (meta.ingress.l2_fwd_mode == L2_FWD_MODE_MC) {  // probably node_341
+      false
+    control process_inner_pim_sup_key
+      if (meta.ingress.l2_fwd_mode == L2_FWD_MODE_MC) {  // probably node_377
+        false
+  control process_compute_ifabric_ftag
+    if (meta.ig_tunnel.ftag_mode == 0) {  // probably node_391
+      true
+      ifabric_ftag.apply();
+        miss
+  if (meta.ingress.l2_fwd_mode == L2_FWD_MODE_UC) {  // probably node_394
+    true
+    if (meta.ingress.l3_fwd_mode == L3_FWD_MODE_BRIDGE) {  // probably node_395
+      false
+      if (meta.l3.dst_ecmp_vld == 1) {  // probably node_401
+        dst_adjacency.apply();
+          miss, but I probably want this to hit
+
+ 0xdae            bit<14> bd
+ 0x00ffeeddccbb   bit<48> mac
+ 0                bit<1> is_ptr   From later code, it looks like this should be 1 for packet enters an IP tunnel, or 0 for normal non-tunnel forwarding.
+ e01   bit<13> ptr_or_idx
+table_add dst_adjacency set_dst_l2_rw_adjacency 25 => 0xdae 0x00ffeeddccbb 0 0xe01
+
+After successfully performing dst_fib_hit_adj in table
+ipv4_dst_fib_lpm, we would like to get the packet out with a rewritten
+dest and source MAC address, and with TTL decremented.  Which table do
+we need to write next?
+
+          "name" : "node_341",
+meta.ingress.l2_fwd_mode == 1 (L2_FWD_MODE_MC)
+
+#define L2_FWD_MODE_UC           0
+#define L2_FWD_MODE_MC           1
+#define L2_FWD_MODE_BC           2
+#define L2_FWD_MODE_FLOOD        3

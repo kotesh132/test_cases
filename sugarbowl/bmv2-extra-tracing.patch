@@ -1,0 +1,57 @@
+diff --git a/src/bm_sim/actions.cpp b/src/bm_sim/actions.cpp
+index 93cbfca..242d5ee 100644
+--- a/src/bm_sim/actions.cpp
++++ b/src/bm_sim/actions.cpp
+@@ -23,6 +23,7 @@
+ #include <bm/bm_sim/event_logger.h>
+ #include <bm/bm_sim/P4Objects.h>
+ #include <bm/bm_sim/packet.h>
++#include <bm/bm_sim/logger.h>
+ 
+ #include <iostream>
+ #include <string>
+@@ -272,6 +273,7 @@ ActionFnEntry::execute(Packet *pkt) const {
+   auto &primitives = action_fn->primitives;
+   size_t param_offset = 0;
+   // primitives is a vector of pointers
++  BMLOG_TRACE_PKT(*pkt, "Executing action {}", action_fn->get_name());
+   for (auto primitive : primitives) {
+     primitive->execute(&state, &(action_fn->params[param_offset]));
+     param_offset += primitive->get_num_params();
+diff --git a/src/bm_sim/conditionals.cpp b/src/bm_sim/conditionals.cpp
+index 21b40a3..2ac70d8 100644
+--- a/src/bm_sim/conditionals.cpp
++++ b/src/bm_sim/conditionals.cpp
+@@ -21,6 +21,7 @@
+ #include <bm/bm_sim/conditionals.h>
+ #include <bm/bm_sim/event_logger.h>
+ #include <bm/bm_sim/packet.h>
++#include <bm/bm_sim/logger.h>
+ 
+ #include <cassert>
+ 
+@@ -36,6 +37,24 @@ Conditional::operator()(Packet *pkt) const {
+   PHV *phv = pkt->get_phv();
+   bool result = eval(*phv);
+   BMELOG(condition_eval, *pkt, *this, result);
++
++  // TBD: The following code prints the condition node name and
++  // whether it evaluates to true or false.  It would be nicer to see
++  // all of these things in the log:
++  //
++  // + string representation of the condition expression,
++  //   e.g. ((meta.l3.l3_type == 1) || (meta.l2.l2_type == 0))
++  //
++  // + The current values of all variables involved in evaluating the
++  //   expression.
++  //
++  // + The file name and line number where the condition expression
++  //   begins.  This would require adding that information to the bmv2
++  //   JSON configuration file, so changes to p4c-bm2-ss.  I don't
++  //   know how difficult that is.  The above additions are very
++  //   useful even without this one.
++  BMLOG_TRACE_PKT(*pkt, "Evaluating condition {} result {}",
++                  this->get_name(), result);
+   DEBUGGER_NOTIFY_UPDATE_V(
+       Debugger::PacketId::make(pkt->get_packet_id(), pkt->get_copy_id()),
+       Debugger::FIELD_COND, result);

@@ -1,0 +1,44 @@
+{
+	"compilerHints" : 
+		{
+			"inlining" : [
+			],
+			"parser_extra_fields" : [
+				"hdr.ipv4.ihl",
+				"hdr.int_shim_int.length",
+				"hdr.ioam_trace_ioam.len",
+				"hdr.ipv6srh.hdr_ext_len",
+				"hdr.ipv6scndsrh.hdr_ext_len",
+				"hdr.geneve.optLen",
+				"hdr.inner_ipv4.ihl"
+			],
+			"outer_layer_states" : [
+				"parse_ieth_tag",
+				"parse_ethernet",
+				"parse_vntag",
+				"parse_llc_header",
+				"parse_snap_header",
+				"parse_ivntag",
+				"parse_qinq",
+				"parse_qtag0",
+				"parse_qtag1",
+				"parse_trill",
+				"parse_dce",
+				"parse_cmd",
+				"parse_cmd_sgt",
+				"parse_cmd_sgt_dgt",
+				"parse_timestamp",
+				"parse_fcoe",
+				"parse_rarp",
+				"parse_ipv6",
+				"parse_ipv6_hop_by_hop",
+				"parse_ipv6srh",
+				"parse_ipv6scndsrh",
+				"parse_ipv6frag",
+				"parse_icmpv6",
+				"parse_ipv6_nd",
+				"parse_ipv4",
+				"start"
+			]
+		}	
+}

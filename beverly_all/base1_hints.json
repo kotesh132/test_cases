@@ -1,0 +1,22 @@
+{
+	"compilerHints" : 
+		{
+			"inlining" : [
+			],
+			"parser_extra_fields" : [
+				"hdr.pie_header.pie_word0",
+				"hdr.pie_header.pie_word1",
+				"hdr.pie_header.pie_word2",
+				"hdr.pie_header.pie_word3",
+				"hdr.pie_header.pie_word4",
+				"hdr.pie_header.pie_word5",
+				"hdr.pie_header.pie_word6",
+				"hdr.pie_header.pie_word7",
+				"hdr.ipv4.ihl",
+				"hdr.cmd_pt1.length_",
+				"hdr.ipv6_hopbyhop_0.hdrExtLen",
+				"hdr.ipv6_hopbyhop_1.hdrExtLen"
+			]
+		}
+	
+}

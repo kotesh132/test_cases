@@ -1,0 +1,11 @@
+{
+	"compilerHints" : 
+		{
+			"inlining" : [
+			],
+			"parser_extra_fields" : [
+				"hdr.ipv4.ihl"
+			]
+		}
+	
+}

@@ -1,0 +1,545 @@
+{
+  "qua_pxr_outer_header_stack": {
+    "type": "packed_struct",
+    "members": {
+      "ieth":         { "size" : 1, "name" : "ieth" },
+      "ce":           { "size" : 1, "name" : "ethernet" },
+      "vntag":        { "size" : 1, "name" : "vntag" },
+      "ivntag":       { "size" : 1, "name" : "ivntag" },
+      "qtag0":        { "size" : 1, "name" : "qtag0" },
+      "qtag1":        { "size" : 1, "name" : "qtag1" },
+      "cmd":          { "size" : 1, "name" : "cmd" },
+      "cmd_sgt":      { "size" : 1, "name" : "cmd_sgt" },
+      "cmd_sgt_dgt":  { "size" : 1, "name" : "cmd_sgt_dgt" },
+      "snap":         { "size" : 1, "name" : "snap" },
+      "trill":        { "size" : 1, "name" : "trill" },
+      "l3_ipv4":      { "size" : 1, "name" : "ipv4" },
+      "l3_ipv6":      { "size" : 1, "name" : "ipv6" },
+      "l3_nsh_base":  { "size" : 1, "name" : "nsh" },
+      "l3_nsh24":     { "size" : 1, "name" : "nsh24" },
+      "l3_nsh64":     { "size" : 1, "name" : "nsh64" },
+      "l3_mpls":      { "size" : 1, "name" : "mpls" },
+      "v6_hbh":       { "size" : 1, "name" : "ipv6_hop_by_hop" },
+      "v6_frag":      { "size" : 1, "name" : "ipv6frag" },
+      "l4_tcp":       { "size" : 1, "name" : "tcp" },
+      "l4_udp":       { "size" : 1, "name" : "udp" },
+      "l4_ivxlan":    { "size" : 1, "name" : "ivxlan" },
+      "l4_vxlan":     { "size" : 1, "name" : "vxlan" },
+      "l4_nvgre":     { "size" : 1, "name" : "nvgre" },
+      "l4_geneve":    { "size" : 1, "name" : "geneve" },
+      "l4_erspan2":   { "size" : 1, "name" : "erspan2" },
+      "l4_erspan3":   { "size" : 1, "name" : "erspan3" },
+      "l4_nd":        { "size" : 1, "name" : "ipv6_nd" },
+      "l4_gre":       { "size" : 1, "name" : "gre" },
+      "ipv6srh":      { "size" : 1, "name" : "ipv6srh" },
+      "ipv6scndsrh":  { "size" : 1, "name" : "ipv6scndsrh" },
+      "icmp":         { "size" : 1, "name" : "icmp" },
+      "icmpv6":       { "size" : 1, "name" : "icmpv6" },
+      "arp_rarp":     { "size" : 1, "name" : "arp_rarp" }
+    }
+  },
+  "qua_pxr_inner_header_stack": {
+    "type": "packed_struct",
+    "members": {
+      "ce":           { "size" : 1, "name" : "inner_ethernet" },
+      "qtag0":        { "size" : 1, "name" : "inner_qtag0" },
+      "qtag1":        { "size" : 1, "name" : "inner_qtag1" },
+      "cmd":          { "size" : 1, "name" : "inner_cmd" },
+      "cmd_sgt":      { "size" : 1, "name" : "inner_cmd_sgt" },
+      "cmd_sgt_dgt":  { "size" : 1, "name" : "inner_cmd_sgt_dgt" },
+      "l3_ipv4":      { "size" : 1, "name" : "inner_ipv4" },
+      "l3_ipv6":      { "size" : 1, "name" : "inner_ipv6" },
+      "l4_tcp":       { "size" : 1, "name" : "inner_tcp" },
+      "l4_udp":       { "size" : 1, "name" : "inner_udp" },
+      "l4_nd":        { "size" : 1, "name" : "inner_ipv6_nd" },
+      "icmp":         { "size" : 1, "name" : "inner_icmp" },
+      "icmpv6":       { "size" : 1, "name" : "inner_icmpv6" },
+      "arp_rarp":     { "size" : 1, "name" : "inner_arp_rarp" }
+    }
+  },
+  "qua_pxr_byte_vector": {
+    "type": "packed_struct",
+    "members": {
+      "nsh_base": {
+        "type": "packed_struct",
+        "members": {
+          "nsh_service_idx": { "size" : 8, "source_header" : "nsh", "header_field" : "nsh.sindex" }
+        }
+      },
+      "nsh24_64": {
+        "type": "packed_union",
+        "members": {
+          "nsh24": {
+            "type": "packed_struct",
+            "members": {
+              "nsh_service_path": { "size" : 24, "source_header" : "nsh24", "header_field" : "nsh24.sp" },
+              "nsh_src_if_id":    { "size" : 16, "source_header" : "nsh24", "header_field" : "nsh24.sif" },
+              "nsh_reserved":      { "size" : 8, "source_header" : "nsh24", "header_field" : "nsh24.rsvd1" },
+              "nsh_tenant_id":    { "size" : 24, "source_header" : "nsh24", "header_field" : "nsh24.tenant_id" },
+              "nsh_sclass":       { "size" : 16, "source_header" : "nsh24", "header_field" : "nsh24.sclass" },
+              "nsh_dclass":       { "size" : 16, "source_header" : "nsh24", "header_field" : "nsh24.dclass" },
+              "nsh_flag_res":      { "size" : 2, "source_header" : "nsh24", "header_field" : "nsh24.rsvd0" },
+              "nsh_src_sw_id":    { "size" : 12, "source_header" : "nsh24", "header_field" : "nsh24.snid" },
+              "pad":               { "size" : 2, "source_header" : "none", "header_field" : "none" }
+            }
+          },
+          "nsh64": {
+            "type": "packed_struct",
+            "members": {
+              "nsh_service_path": { "size" : 24, "source_header" : "nsh64", "header_field" : "nsh64.sp" },
+              "nsh_src_if_id":    { "size" : 16, "source_header" : "nsh64", "header_field" : "nsh64.sif" },
+              "nsh_reserved":      { "size" : 8, "source_header" : "nsh64", "header_field" : "nsh64.rsvd1" },
+              "nsh_tenant_id":    { "size" : 24, "source_header" : "nsh64", "header_field" : "nsh64.tenant_id" },
+              "nsh_sclass":       { "size" : 16, "source_header" : "nsh64", "header_field" : "nsh64.sclass" },
+              "nsh_dclass":       { "size" : 16, "source_header" : "nsh64", "header_field" : "nsh64.dclass" },
+              "nsh_flag_res":      { "size" : 2, "source_header" : "nsh64", "header_field" : "nsh64.rsvd0" },
+              "nsh_src_sw_id":    { "size" : 12, "source_header" : "nsh64", "header_field" : "nsh64.snid" },
+              "pad":               { "size" : 2, "source_header" : "none", "header_field" : "none" }
+            }
+          }
+        }
+      },
+      "srv6": {
+        "type": "packed_struct",
+        "members": {
+          "v6_srh_sl":        { "size" : 8, "source_header" : "ipv6srh", "header_field" : "ipv6srh.segments_left" },
+          "v6_srh_nh":        { "size" : 8, "source_header" : "ipv6srh", "header_field" : "ipv6srh.next_header" },
+          "v6_srh_flags":     { "size" : 8, "source_header" : "ipv6srh", "header_field" : "ipv6srh.flags" },
+          "v6_srh_tag":      { "size" : 16, "source_header" : "ipv6srh", "header_field" : "ipv6srh.tag" },
+          "v6_srh_sl_min1": { "size" : 128, "source_header" : "ipv6srh", "header_field" : "ipv6srh.segment0" }
+        }
+      },
+      "ihdr": {
+        "type": "packed_struct",
+        "members": {
+          "sof":             { "size" : 8, "source_header" : "ieth", "header_field" : "ieth.sof" },
+          "src_chip":        { "size" : 8, "source_header" : "ieth", "header_field" : "ieth.src_chip" },
+          "src_port":        { "size" : 8, "source_header" : "ieth", "header_field" : "ieth.src_port" },
+          "dst_chip":        { "size" : 8, "source_header" : "ieth", "header_field" : "ieth.dst_chip" },
+          "dst_port":        { "size" : 8, "source_header" : "ieth", "header_field" : "ieth.dst_port" },
+          "pkt_hash":        { "size" : 8, "source_header" : "ieth", "header_field" : "ieth.pkt_hash" },
+          "tclass":          { "size" : 4, "source_header" : "ieth", "header_field" : "ieth.tclass" },
+          "src_idx":        { "size" : 14, "source_header" : "ieth", "header_field" : "ieth.src_idx" },
+          "dst_idx":        { "size" : 14, "source_header" : "ieth", "header_field" : "ieth.dst_idx" },
+          "outer_bd":        { "size" : 9, "source_header" : "ieth", "header_field" : "ieth.outer_bd" },
+          "bd":             { "size" : 14, "source_header" : "ieth", "header_field" : "ieth.bd" },
+          "sup_code":        { "size" : 5, "source_header" : "ieth", "header_field" : "ieth.sup_code" },
+          "pad":             { "size" : 4, "source_header" : "none", "header_field" : "none" }
+        }
+      },
+      "outer_l2": {
+        "type": "packed_struct",
+        "members": {
+          "da_sa": {
+            "type": "packed_union",
+            "members": {
+              "ce": {
+                "type": "packed_struct",
+                "members": {
+                  "ce_da": { "size" : 48, "source_header" : "ethernet", "header_field" : "ethernet.dstAddr" },
+                  "ce_sa": { "size" : 48, "source_header" : "ethernet", "header_field" : "ethernet.srcAddr" }
+                }
+              },
+              "trill": {
+                "type": "packed_struct",
+                "members": {
+                  "irbid":       { "size" : 16, "source_header" : "trill", "header_field" : "trill.igrb" },
+                  "erbid":       { "size" : 16, "source_header" : "trill", "header_field" : "trill.egrb" },
+                  "pad":         { "size" : 64, "source_header" : "none", "header_field" : "none" }
+                }
+              }
+            }
+          },
+          "cmd_sgt_dgt": {
+            "type": "packed_union",
+            "members": {
+              "cmd_sgt": {
+                "type": "packed_struct",
+                "members": {
+                  "cmd_sgt": { "size" : 16, "source_header" : "cmd_sgt", "header_field" : "cmd_sgt.sgt" },
+                  "pad":     { "size" : 16, "source_header" : "none", "header_field" : "none" }
+                }
+              },
+              "cmd_sgt_dgt": {
+                "type": "packed_struct",
+                "members": {
+                  "cmd_sgt": { "size" : 16, "source_header" : "cmd_sgt_dgt", "header_field" : "cmd_sgt_dgt.sgt" },
+                  "cmd_dgt": { "size" : 16, "source_header" : "cmd_sgt_dgt", "header_field" : "cmd_sgt_dgt.dgt" }
+                }
+              }
+            }
+          },
+          "vir": {
+            "type": "packed_union",
+            "members": {
+              "vntag": {
+                "type": "packed_struct",
+                "members": {
+                  "svif" : { "size" : 12, "source_header" : "vntag", "header_field" : "vntag.srcVif" },
+                  "dvif" : { "size" : 14, "source_header" : "vntag", "header_field" : "vntag.destVif" },
+                  "pad"  :  { "size" : 6, "source_header" : "none", "header_field" : "none" }
+                }
+              },
+              "ivntag": {
+                "type": "packed_struct",
+                "members": {
+                  "svif" : { "size" : 12, "source_header" : "ivntag", "header_field" : "ivntag.srcVif" },
+                  "dvif" : { "size" : 14, "source_header" : "ivntag", "header_field" : "ivntag.destVif" },
+                  "pcp"  :  { "size" : 3, "source_header" : "ivntag", "header_field" : "ivntag.pcp" },
+                  "pad"  :  { "size" : 3, "source_header" : "none", "header_field" : "none" }
+                }
+              }
+            }
+          },
+          "qtag0_vlan" : { "size" : 12, "source_header" : "qtag0", "header_field" : "qtag0.vid" },
+          "qtag0_cos"  :  { "size" : 3, "source_header" : "qtag0", "header_field" : "qtag0.pcp" },
+          "qtag1_vlan" : { "size" : 12, "source_header" : "qtag1", "header_field" : "qtag1.vid" },
+          "qtag1_cos"  :  { "size" : 3, "source_header" : "qtag1", "header_field" : "qtag1.pcp" },
+          "l2mp": {
+            "type": "packed_union",
+            "members": {
+              "dce": {
+                "type": "packed_struct",
+                "members": {
+                  "ftag" : { "size" : 10, "source_header" : "dce", "header_field" : "dce.ftag" },
+                  "ttl"  :  { "size" : 6, "source_header" : "dce", "header_field" : "dce.ttl" }
+                }
+              },
+              "trill": {
+                "type": "packed_struct",
+                "members": {
+                  "v"     : { "size" : 2, "source_header" : "trill", "header_field" : "trill.v" },
+                  "r"     : { "size" : 2, "source_header" : "trill", "header_field" : "trill.reserved" },
+                  "oplen" : { "size" : 5, "source_header" : "trill", "header_field" : "trill.optlength" },
+                  "hopct" : { "size" : 6, "source_header" : "trill", "header_field" : "trill.hopcount" },
+                  "pad"   : { "size" : 1, "source_header" : "none", "header_field" : "none" }
+                }
+              }
+            }
+          },
+          "pad":       { "size" : 2, "source_header" : "none", "header_field" : "none" }
+        }
+      },
+      "outer_l3": {
+        "type": "packed_union",
+        "members": {
+          "fc": {
+            "type": "packed_struct",
+            "members": {
+              "r_ctl"     :   { "size" : 8, "source_header" : "fcoe", "header_field" : "fcoe.rctl" },
+              "esof"      :   { "size" : 4, "source_header" : "fcoe", "header_field" : "fcoe.esof" },
+              "pad"       :   { "size" : 316, "source_header" : "none", "header_field" : "none" }
+            }
+          },
+          "ip": {
+            "type": "packed_struct",
+            "members": {
+              "v4_v6": {
+                "type": "packed_union",
+                "members": {
+                  "v4": {
+                    "type": "packed_struct",
+                    "members": {
+                      "pklen"     : { "size" : 16, "source_header" : "ipv4", "header_field" : "ipv4.totalLen" },
+                      "ttl"       :  { "size" : 8, "source_header" : "ipv4", "header_field" : "ipv4.ttl" },
+                      "prot"      :  { "size" : 8, "source_header" : "ipv4", "header_field" : "ipv4.protocol" },
+                      "csum"      : { "size" : 16, "source_header" : "ipv4", "header_field" : "ipv4.hdrChecksum" },
+                      "da"        : { "size" : 32, "source_header" : "ipv4", "header_field" : "ipv4.srcAddr" },
+                      "sa"        : { "size" : 32, "source_header" : "ipv4", "header_field" : "ipv4.dstAddr" },
+                      "ver"       :  { "size" : 4, "source_header" : "ipv4", "header_field" : "ipv4.version" },
+                      "hl"        :  { "size" : 4, "source_header" : "ipv4", "header_field" : "ipv4.ihl" },
+                      "dscp"      :  { "size" : 6, "source_header" : "ipv4", "header_field" : "ipv4.dscp" },
+                      "ecn"       :  { "size" : 2, "source_header" : "ipv4", "header_field" : "ipv4.ecn" },
+                      "fragoff"   : { "size" : 13, "source_header" : "ipv4", "header_field" : "ipv4.fragOffset" },
+                      "pad"       : { "size" : 187, "source_header" : "none", "header_field" : "none" }
+                    }
+                  },
+                  "v6": {
+                    "type": "packed_struct",
+                    "members": {
+                      "v6_base": {
+                        "type": "packed_struct",
+                        "members": {
+                          "ttl"       :   { "size" : 8, "source_header" : "ipv6", "header_field" : "ipv6.hopLimit" },
+                          "prot"      :   { "size" : 8, "source_header" : "ipv6", "header_field" : "ipv6.nextHeader" },
+                          "da"        : { "size" : 128, "source_header" : "ipv6", "header_field" : "ipv6.srcAddr" },
+                          "sa"        : { "size" : 128, "source_header" : "ipv6", "header_field" : "ipv6.dstAddr" },
+                          "flow_lbl"  :  { "size" : 20, "source_header" : "ipv6", "header_field" : "ipv6.flowLabel" },
+                          "ver"       :   { "size" : 4, "source_header" : "ipv6", "header_field" : "ipv6.version" },
+                          "pyld_len"  :   { "size" : 7, "source_header" : "ipv6", "header_field" : "ipv6.payloadLen" },
+                          "dscp"      :   { "size" : 6, "source_header" : "ipv6", "header_field" : "ipv6.dscp" },
+                          "ecn"       :   { "size" : 2, "source_header" : "ipv6", "header_field" : "ipv6.ecn" }
+                        }
+                      },
+                      "v6_frag": {
+                        "type": "packed_struct",
+                        "members": {
+                          "mf"        :   { "size" : 1, "source_header" : "ipv6frag", "header_field" : "ipv6frag.flag_more" },
+                          "fragoff"   :  { "size" : 13, "source_header" : "ipv6frag", "header_field" : "ipv6frag.flagOffset" }
+                        }
+                      },
+                      "pad" :   { "size" : 3, "source_header" : "none", "header_field" : "none" }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "arp": {
+            "type": "packed_struct",
+            "members": {
+              "hrd"      : { "size" : 16, "source_header" : "arp_rarp", "header_field" : "arp_rarp.hwType" },
+              "pro"      : { "size" : 16, "source_header" : "arp_rarp", "header_field" : "arp_rarp.protoType" },
+              "hln"      :  { "size" : 8, "source_header" : "arp_rarp", "header_field" : "arp_rarp.hwAddrLen" },
+              "pln"      :  { "size" : 8, "source_header" : "arp_rarp", "header_field" : "arp_rarp.protoAddrLen" },
+              "op"       : { "size" : 16, "source_header" : "arp_rarp", "header_field" : "arp_rarp.opcode" },
+              "sha"      : { "size" : 48, "source_header" : "arp_rarp", "header_field" : "arp_rarp.srcHwAddr" },
+              "spa"      : { "size" : 32, "source_header" : "arp_rarp", "header_field" : "arp_rarp.srcProtoAddr" },
+              "tha"      : { "size" : 48, "source_header" : "arp_rarp", "header_field" : "arp_rarp.dstHwAddr" },
+              "tpa"      : { "size" : 32, "source_header" : "arp_rarp", "header_field" : "arp_rarp.dstProtoAddr" },
+              "pad"      : { "size" : 104, "source_header" : "none", "header_field" : "none" }
+            }
+          },
+          "mpls": {
+            "type": "packed_struct",
+            "members": {
+              "label0_lbl"     : { "size" : 20, "source_header" : "mpls", "header_field" : "mpls.0].label" },
+              "label0_ttl"     :  { "size" : 8, "source_header" : "mpls", "header_field" : "mpls.0].ttl" },
+              "label0_exp"     :  { "size" : 3, "source_header" : "mpls", "header_field" : "mpls.0].exp" },
+              "label1_lbl"     : { "size" : 20, "source_header" : "mpls", "header_field" : "mpls.1].label" },
+              "label1_ttl"     :  { "size" : 8, "source_header" : "mpls", "header_field" : "mpls.1].ttl" },
+              "label1_exp"     :  { "size" : 3, "source_header" : "mpls", "header_field" : "mpls.1].exp" },
+              "label2_lbl"     : { "size" : 20, "source_header" : "mpls", "header_field" : "mpls.2].label" },
+              "label2_ttl"     :  { "size" : 8, "source_header" : "mpls", "header_field" : "mpls.2].ttl" },
+              "label2_exp"     :  { "size" : 3, "source_header" : "mpls", "header_field" : "mpls.2].exp" },
+              "label3_lbl"     : { "size" : 20, "source_header" : "mpls", "header_field" : "mpls.3].label" },
+              "label3_ttl"     :  { "size" : 8, "source_header" : "mpls", "header_field" : "mpls.3].ttl" },
+              "label3_exp"     :  { "size" : 3, "source_header" : "mpls", "header_field" : "mpls.3].exp" },
+              "label4_lbl"     : { "size" : 20, "source_header" : "mpls", "header_field" : "mpls.4].label" },
+              "label4_ttl"     :  { "size" : 8, "source_header" : "mpls", "header_field" : "mpls.4].ttl" },
+              "label4_exp"     :  { "size" : 3, "source_header" : "mpls", "header_field" : "mpls.4].exp" },
+              "label5_lbl"     : { "size" : 20, "source_header" : "mpls", "header_field" : "mpls.5].label" },
+              "label5_ttl"     :  { "size" : 8, "source_header" : "mpls", "header_field" : "mpls.5].ttl" },
+              "label5_exp"     :  { "size" : 3, "source_header" : "mpls", "header_field" : "mpls.5].exp" },
+              "label6_lbl"     : { "size" : 20, "source_header" : "mpls", "header_field" : "mpls.6].label" },
+              "label6_ttl"     :  { "size" : 8, "source_header" : "mpls", "header_field" : "mpls.6].ttl" },
+              "label6_exp"     :  { "size" : 3, "source_header" : "mpls", "header_field" : "mpls.6].exp" },
+              "label7_lbl"     : { "size" : 20, "source_header" : "mpls", "header_field" : "mpls.7].label" },
+              "label7_ttl"     :  { "size" : 8, "source_header" : "mpls", "header_field" : "mpls.7].ttl" },
+              "label7_exp"     :  { "size" : 3, "source_header" : "mpls", "header_field" : "mpls.7].exp" },
+              "pad"            : { "size" : 80, "source_header" : "none", "header_field" : "none" }
+            }
+          }
+        }
+      },
+      "outer_l4": {
+        "type": "packed_union",
+        "members": {
+          "tcp": {
+            "type": "packed_struct",
+            "members": {
+              "sp":   { "size" : 16, "source_header" : "tcp", "header_field" : "tcp.srcPort" },
+              "dp":   { "size" : 16, "source_header" : "tcp", "header_field" : "tcp.dstPort" },
+              "csum": { "size" : 16, "source_header" : "tcp", "header_field" : "tcp.checksum" },
+              "flag":  { "size" : 8, "source_header" : "tcp", "header_field" : "tcp.flags" },
+              "pad":  { "size" : 96, "source_header" : "none", "header_field" : "none" }
+            }
+          },
+          "udp": {
+            "type": "packed_struct",
+            "members": {
+              "sp":   { "size" : 16, "source_header" : "udp", "header_field" : "udp.srcPort" },
+              "dp":   { "size" : 16, "source_header" : "udp", "header_field" : "udp.dstPort" },
+              "len":  { "size" : 16, "source_header" : "udp", "header_field" : "udp.length_" },
+              "csum": { "size" : 16, "source_header" : "udp", "header_field" : "udp.checksum" },
+              "pad":  { "size" : 88, "source_header" : "none", "header_field" : "none" }
+            }
+          },
+          "ivxlan": {
+            "type": "packed_struct",
+            "members": {
+              "tn_nonce_info_sclass": { "size" : 16, "source_header" : "ivxlan", "header_field" : "ivxlan.nonce_sclass" },
+              "tn_seg_id":            { "size" : 24, "source_header" : "ivxlan", "header_field" : "ivxlan.vni" },
+              "tn_nonce_info_dre":     { "size" : 3, "source_header" : "ivxlan", "header_field" : "ivxlan.nonce_dre" },
+              "tn_lsb_info_vpath":     { "size" : 4, "source_header" : "ivxlan", "header_field" : "ivxlan.lsb_vpath" },
+              "tn_lsb_info_metric":    { "size" : 3, "source_header" : "ivxlan", "header_field" : "ivxlan.lsb_metric" },
+              "pad":                 { "size" : 102, "source_header" : "none", "header_field" : "none" }
+            }
+          },
+          "nd": {
+            "type": "packed_struct",
+            "members": {
+              "type_code": {
+                "type": "packed_union",
+                "members": {
+                  "icmp": {
+                    "type": "packed_struct",
+                    "members": {
+                      "typeCode": { "size" : 16, "source_header" : "icmp", "header_field" : "icmp.typeCode" }
+                    }
+                  },
+                  "icmpv6": {
+                    "type": "packed_struct",
+                    "members": {
+                      "nd_type": { "size" : 8, "source_header" : "icmp", "header_field" : "icmp.type_" },
+                      "code":    { "size" : 8, "source_header" : "icmp", "header_field" : "icmp.code" }
+                    }
+                  }
+                }
+              },
+              "flags":    { "size" : 8, "source_header" : "ipv6_nd", "header_field" : "ipv6_nd.flags" },
+              "target": { "size" : 128, "source_header" : "ipv6_nd", "header_field" : "ipv6_nd.targetAddr" }
+            }
+          }
+        }
+      }
+    }
+  },
+  "qua_pxr_bit_vector": {
+    "type": "packed_struct",
+    "members": {
+      "nsh_base": {
+        "type": "packed_struct",
+        "members": {
+          "nsh_oam":         { "size" : 1, "source_header" : "nsh", "header_field" : "nsh.oam" },
+          "nsh_context_hdr": { "size" : 1, "source_header" : "nsh", "header_field" : "nsh.context" }
+        }
+      },
+      "nsh24_64": {
+        "type": "packed_union",
+        "members": {
+          "nsh24": {
+            "type": "packed_struct",
+            "members": {
+              "nsh_flag_d_bit":    { "size" : 1, "source_header" : "nsh24", "header_field" : "nsh24.d" },
+              "nsh_flag_f_bit":    { "size" : 1, "source_header" : "nsh24", "header_field" : "nsh24.f" }
+            }
+          },
+          "nsh64": {
+            "type": "packed_struct",
+            "members": {
+              "nsh_flag_d_bit":    { "size" : 1, "source_header" : "nsh64", "header_field" : "nsh64.d" },
+              "nsh_flag_f_bit":    { "size" : 1, "source_header" : "nsh64", "header_field" : "nsh64.f" }
+            }
+          }
+        }
+      },
+      "ihdr": {
+        "type": "packed_struct",
+        "members": {
+          "hdr_type":        { "size" : 1, "source_header" : "ieth", "header_field" : "ieth.hdr_type" },
+          "ext_hdr":         { "size" : 1, "source_header" : "ieth", "header_field" : "ieth.ext_hdr" },
+          "traceroute":      { "size" : 1, "source_header" : "ieth", "header_field" : "ieth.mark" },
+          "span":            { "size" : 1, "source_header" : "ieth", "header_field" : "ieth.span" },
+          "alt_if_profile":  { "size" : 1, "source_header" : "ieth", "header_field" : "ieth.alt_if_profile" },
+          "ip_ttl_bypass":   { "size" : 1, "source_header" : "ieth", "header_field" : "ieth.ip_ttl_bypass" },
+          "src_is_tunnel":   { "size" : 1, "source_header" : "ieth", "header_field" : "ieth.src_is_tunnel" },
+          "dst_is_tunnel":   { "size" : 1, "source_header" : "ieth", "header_field" : "ieth.dst_is_tunnel" },
+          "l2_tunnel":       { "size" : 1, "source_header" : "ieth", "header_field" : "ieth.l2_tunnel" },
+          "sup_tx":          { "size" : 1, "source_header" : "ieth", "header_field" : "ieth.sup_tx" },
+          "src_is_peer":     { "size" : 1, "source_header" : "ieth", "header_field" : "ieth.src_is_peer" }
+        }
+      },
+      "outer_l2": {
+        "type": "packed_struct",
+        "members": {
+          "vir": {
+            "type": "packed_union",
+            "members": {
+              "vntag": {
+                "type": "packed_struct",
+                "members": {
+                  "e"    :  { "size" : 1, "source_header" : "vntag", "header_field" : "vntag.reserved" },
+                  "l"    :  { "size" : 1, "source_header" : "vntag", "header_field" : "vntag.looped" },
+                  "p"    :  { "size" : 1, "source_header" : "vntag", "header_field" : "vntag.pointer" },
+                  "dir"  :  { "size" : 1, "source_header" : "vntag", "header_field" : "vntag.direction" }
+                }
+              },
+              "ivntag": {
+                "type": "packed_struct",
+                "members": {
+                  "de"   :  { "size" : 1, "source_header" : "ivntag", "header_field" : "ivntag.de" },
+                  "pad"  :  { "size" : 3, "source_header" : "none", "header_field" : "none" }
+                }
+              }
+            }
+          },
+          "qtag0_de"   :  { "size" : 1, "source_header" : "qtag0", "header_field" : "qtag0.cfi" },
+          "qtag1_de"   :  { "size" : 1, "source_header" : "qtag1", "header_field" : "qtag1.cfi" },
+          "l2mp": {
+            "type": "packed_struct",
+            "members": {
+              "trill_m"     : { "size" : 1, "source_header" : "trill", "header_field" : "trill.m" }
+            }
+          }
+        }
+      },
+      "outer_l3": {
+        "type": "packed_union",
+        "members": {
+          "ip": {
+            "type": "packed_struct",
+            "members": {
+              "v4_v6": {
+                "type": "packed_union",
+                "members": {
+                  "v4": {
+                    "type": "packed_struct",
+                    "members": {
+                      "df"        :  { "size" : 1, "source_header" : "ipv4", "header_field" : "ipv4.flag_noFrag" },
+                      "mf "       :  { "size" : 1, "source_header" : "ipv4", "header_field" : "ipv4.frag_more" }
+                    }
+                  },
+                  "v6": {
+                    "type": "packed_struct",
+                    "members": {
+                      "mf"        :   { "size" : 1, "source_header" : "ipv6frag", "header_field" : "ipv6frag.flag_more" },
+                      "pad"       :   { "size" : 1, "source_header" : "none", "header_field" : "none" }
+                    }
+                  }
+                }
+              },
+              "pad" : { "size" : 6, "source_header" : "none", "header_field" : "none" }
+            }
+          },
+          "mpls": {
+            "type": "packed_struct",
+            "members": {
+              "label0_s"       :  { "size" : 1, "source_header" : "mpls", "header_field" : "mpls.0].bos" },
+              "label1_s"       :  { "size" : 1, "source_header" : "mpls", "header_field" : "mpls.1].bos" },
+              "label2_s"       :  { "size" : 1, "source_header" : "mpls", "header_field" : "mpls.2].bos" },
+              "label3_s"       :  { "size" : 1, "source_header" : "mpls", "header_field" : "mpls.3].bos" },
+              "label4_s"       :  { "size" : 1, "source_header" : "mpls", "header_field" : "mpls.4].bos" },
+              "label5_s"       :  { "size" : 1, "source_header" : "mpls", "header_field" : "mpls.5].bos" },
+              "label6_s"       :  { "size" : 1, "source_header" : "mpls", "header_field" : "mpls.6].bos" },
+              "label7_s"       :  { "size" : 1, "source_header" : "mpls", "header_field" : "mpls.7].bos" }
+            }
+          }
+        }
+      },
+      "outer_l4": {
+        "type": "packed_union",
+        "members": {
+          "ivxlan": {
+            "type": "packed_struct",
+            "members": {
+              "tn_nonce":              { "size" : 1, "source_header" : "ivxlan", "header_field" : "ivxlan.flags_nonce" },
+              "tn_lsb":                { "size" : 1, "source_header" : "ivxlan", "header_field" : "ivxlan.flags_locator" },
+              "tn_nonce_info_lb":      { "size" : 1, "source_header" : "ivxlan", "header_field" : "ivxlan.nonce_lb" },
+              "tn_nonce_info_dl":      { "size" : 1, "source_header" : "ivxlan", "header_field" : "ivxlan.nonce_dl" },
+              "tn_nonce_info_e":       { "size" : 1, "source_header" : "ivxlan", "header_field" : "ivxlan.nonce_e" },
+              "tn_nonce_info_sp":      { "size" : 1, "source_header" : "ivxlan", "header_field" : "ivxlan.nonce_sp" },
+              "tn_nonce_info_dp":      { "size" : 1, "source_header" : "ivxlan", "header_field" : "ivxlan.nonce_dp" },
+              "tn_lsb_info_m":         { "size" : 1, "source_header" : "ivxlan", "header_field" : "ivxlan.lsb_m" },
+              "tn_rsvd_x":             { "size" : 1, "source_header" : "ivxlan", "header_field" : "ivxlan.flags_ext_fb_lb_tag" },
+              "tn_rsvd_c":             { "size" : 1, "source_header" : "ivxlan", "header_field" : "ivxlan.flags_color" },
+              "tn_rsvd_p":             { "size" : 1, "source_header" : "ivxlan", "header_field" : "ivxlan.flags_protocol" },
+              "tn_rsvd_f":             { "size" : 1, "source_header" : "ivxlan", "header_field" : "ivxlan.flags_fcn" },
+              "tn_rsvd_o":             { "size" : 1, "source_header" : "ivxlan", "header_field" : "ivxlan.flags_oam" }
+            }
+          }
+        }
+      }
+    }
+  }
+}

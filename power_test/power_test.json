@@ -1,0 +1,14 @@
+{
+	"compilerHints" : 
+		{
+			"inlining" : [
+			],
+			"parser_extra_fields" : [
+				"hdr.ipv4.ihl",
+				"hdr.cmd_pt1.length_",
+				"hdr.ipv6_hopbyhop_0.hdrExtLen",
+				"hdr.ipv6_hopbyhop_1.hdrExtLen"
+			]
+		}
+	
+}

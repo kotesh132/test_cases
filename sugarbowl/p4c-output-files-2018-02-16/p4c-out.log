@@ -1,0 +1,351 @@
+../sug_ig.p4(6290): warning: 1544: value does not fit in 8 bits
+            meta.ig_qos.qos_map_grp = 1544;
+                                      ^^^^
+../sug_ig.p4(4811): [--Wwarn=uninitialized_use] warning: CFG_ip_frag.offset0 may be uninitialized
+        if (meta.l3.lkp_ip_fragOffset < CFG_ip_frag.offset0) {
+                                        ^^^^^^^^^^^^^^^^^^^
+../sug_ig.p4(4816): [--Wwarn=uninitialized_use] warning: CFG_ip_frag.offset1 may be uninitialized
+ if (meta.l3.lkp_ip_fragOffset < CFG_ip_frag.offset1) {
+                                 ^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1778): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers0.label may be uninitialized
+    hdr.mpls[0].label = tmp_mpls_headers0.label;
+                        ^^^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1779): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers0.exp may be uninitialized
+    hdr.mpls[0].exp = tmp_mpls_headers0.exp ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1780): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers0.bos may be uninitialized
+    hdr.mpls[0].bos = tmp_mpls_headers0.bos ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1781): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers0.ttl may be uninitialized
+    hdr.mpls[0].ttl = tmp_mpls_headers0.ttl ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1786): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers0.label may be uninitialized
+    hdr.mpls[0].label = tmp_mpls_headers0.label;
+                        ^^^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1787): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers0.exp may be uninitialized
+    hdr.mpls[0].exp = tmp_mpls_headers0.exp ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1788): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers0.bos may be uninitialized
+    hdr.mpls[0].bos = tmp_mpls_headers0.bos ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1789): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers0.ttl may be uninitialized
+    hdr.mpls[0].ttl = tmp_mpls_headers0.ttl ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1790): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers1.label may be uninitialized
+    hdr.mpls[1].label = tmp_mpls_headers1.label;
+                        ^^^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1791): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers1.exp may be uninitialized
+    hdr.mpls[1].exp = tmp_mpls_headers1.exp ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1792): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers1.bos may be uninitialized
+    hdr.mpls[1].bos = tmp_mpls_headers1.bos ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1793): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers1.ttl may be uninitialized
+    hdr.mpls[1].ttl = tmp_mpls_headers1.ttl ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1798): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers0.label may be uninitialized
+    hdr.mpls[0].label = tmp_mpls_headers0.label;
+                        ^^^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1799): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers0.exp may be uninitialized
+    hdr.mpls[0].exp = tmp_mpls_headers0.exp ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1800): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers0.bos may be uninitialized
+    hdr.mpls[0].bos = tmp_mpls_headers0.bos ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1801): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers0.ttl may be uninitialized
+    hdr.mpls[0].ttl = tmp_mpls_headers0.ttl ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1802): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers1.label may be uninitialized
+    hdr.mpls[1].label = tmp_mpls_headers1.label;
+                        ^^^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1803): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers1.exp may be uninitialized
+    hdr.mpls[1].exp = tmp_mpls_headers1.exp ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1804): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers1.bos may be uninitialized
+    hdr.mpls[1].bos = tmp_mpls_headers1.bos ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1805): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers1.ttl may be uninitialized
+    hdr.mpls[1].ttl = tmp_mpls_headers1.ttl ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1806): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers2.label may be uninitialized
+    hdr.mpls[2].label = tmp_mpls_headers2.label;
+                        ^^^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1807): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers2.exp may be uninitialized
+    hdr.mpls[2].exp = tmp_mpls_headers2.exp ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1808): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers2.bos may be uninitialized
+    hdr.mpls[2].bos = tmp_mpls_headers2.bos ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1809): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers2.ttl may be uninitialized
+    hdr.mpls[2].ttl = tmp_mpls_headers2.ttl ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1814): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers0.label may be uninitialized
+    hdr.mpls[0].label = tmp_mpls_headers0.label;
+                        ^^^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1815): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers0.exp may be uninitialized
+    hdr.mpls[0].exp = tmp_mpls_headers0.exp ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1816): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers0.bos may be uninitialized
+    hdr.mpls[0].bos = tmp_mpls_headers0.bos ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1817): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers0.ttl may be uninitialized
+    hdr.mpls[0].ttl = tmp_mpls_headers0.ttl ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1818): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers1.label may be uninitialized
+    hdr.mpls[1].label = tmp_mpls_headers1.label;
+                        ^^^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1819): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers1.exp may be uninitialized
+    hdr.mpls[1].exp = tmp_mpls_headers1.exp ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1820): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers1.bos may be uninitialized
+    hdr.mpls[1].bos = tmp_mpls_headers1.bos ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1821): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers1.ttl may be uninitialized
+    hdr.mpls[1].ttl = tmp_mpls_headers1.ttl ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1822): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers2.label may be uninitialized
+    hdr.mpls[2].label = tmp_mpls_headers2.label;
+                        ^^^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1823): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers2.exp may be uninitialized
+    hdr.mpls[2].exp = tmp_mpls_headers2.exp ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1824): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers2.bos may be uninitialized
+    hdr.mpls[2].bos = tmp_mpls_headers2.bos ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1825): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers2.ttl may be uninitialized
+    hdr.mpls[2].ttl = tmp_mpls_headers2.ttl ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1826): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers3.label may be uninitialized
+    hdr.mpls[3].label = tmp_mpls_headers3.label;
+                        ^^^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1827): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers3.exp may be uninitialized
+    hdr.mpls[3].exp = tmp_mpls_headers3.exp ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1828): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers3.bos may be uninitialized
+    hdr.mpls[3].bos = tmp_mpls_headers3.bos ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1829): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers3.ttl may be uninitialized
+    hdr.mpls[3].ttl = tmp_mpls_headers3.ttl ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1851): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers0.label may be uninitialized
+    hdr.mpls[0].label = tmp_mpls_headers0.label;
+                        ^^^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1852): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers0.exp may be uninitialized
+    hdr.mpls[0].exp = tmp_mpls_headers0.exp ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1854): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers0.ttl may be uninitialized
+    hdr.mpls[0].ttl = tmp_mpls_headers0.ttl ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1860): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers1.label may be uninitialized
+    hdr.mpls[0].label = tmp_mpls_headers1.label;
+                        ^^^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1861): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers1.exp may be uninitialized
+    hdr.mpls[0].exp = tmp_mpls_headers1.exp ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1863): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers1.ttl may be uninitialized
+    hdr.mpls[0].ttl = tmp_mpls_headers1.ttl ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1864): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers0.label may be uninitialized
+    hdr.mpls[0].label = tmp_mpls_headers0.label;
+                        ^^^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1865): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers0.exp may be uninitialized
+    hdr.mpls[0].exp = tmp_mpls_headers0.exp ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1866): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers0.bos may be uninitialized
+    hdr.mpls[0].bos = tmp_mpls_headers0.bos ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1867): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers0.ttl may be uninitialized
+    hdr.mpls[0].ttl = tmp_mpls_headers0.ttl ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1872): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers2.label may be uninitialized
+    hdr.mpls[0].label = tmp_mpls_headers2.label;
+                        ^^^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1873): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers2.exp may be uninitialized
+    hdr.mpls[0].exp = tmp_mpls_headers2.exp ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1875): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers2.ttl may be uninitialized
+    hdr.mpls[0].ttl = tmp_mpls_headers2.ttl ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1876): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers0.label may be uninitialized
+    hdr.mpls[0].label = tmp_mpls_headers0.label;
+                        ^^^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1877): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers0.exp may be uninitialized
+    hdr.mpls[0].exp = tmp_mpls_headers0.exp ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1878): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers0.bos may be uninitialized
+    hdr.mpls[0].bos = tmp_mpls_headers0.bos ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1879): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers0.ttl may be uninitialized
+    hdr.mpls[0].ttl = tmp_mpls_headers0.ttl ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1880): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers1.label may be uninitialized
+    hdr.mpls[1].label = tmp_mpls_headers1.label;
+                        ^^^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1881): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers1.exp may be uninitialized
+    hdr.mpls[1].exp = tmp_mpls_headers1.exp ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1882): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers1.bos may be uninitialized
+    hdr.mpls[1].bos = tmp_mpls_headers1.bos ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1883): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers1.ttl may be uninitialized
+    hdr.mpls[1].ttl = tmp_mpls_headers1.ttl ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1888): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers3.label may be uninitialized
+    hdr.mpls[0].label = tmp_mpls_headers3.label;
+                        ^^^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1889): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers3.exp may be uninitialized
+    hdr.mpls[0].exp = tmp_mpls_headers3.exp ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1891): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers3.ttl may be uninitialized
+    hdr.mpls[0].ttl = tmp_mpls_headers3.ttl ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1892): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers0.label may be uninitialized
+    hdr.mpls[0].label = tmp_mpls_headers0.label;
+                        ^^^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1893): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers0.exp may be uninitialized
+    hdr.mpls[0].exp = tmp_mpls_headers0.exp ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1894): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers0.bos may be uninitialized
+    hdr.mpls[0].bos = tmp_mpls_headers0.bos ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1895): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers0.ttl may be uninitialized
+    hdr.mpls[0].ttl = tmp_mpls_headers0.ttl ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1896): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers1.label may be uninitialized
+    hdr.mpls[0].label = tmp_mpls_headers1.label;
+                        ^^^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1897): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers1.exp may be uninitialized
+    hdr.mpls[0].exp = tmp_mpls_headers1.exp ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1898): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers1.bos may be uninitialized
+    hdr.mpls[0].bos = tmp_mpls_headers1.bos ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1899): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers1.ttl may be uninitialized
+    hdr.mpls[0].ttl = tmp_mpls_headers1.ttl ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1900): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers2.label may be uninitialized
+    hdr.mpls[0].label = tmp_mpls_headers2.label;
+                        ^^^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1901): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers2.exp may be uninitialized
+    hdr.mpls[0].exp = tmp_mpls_headers2.exp ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1902): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers2.bos may be uninitialized
+    hdr.mpls[0].bos = tmp_mpls_headers2.bos ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1903): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers2.ttl may be uninitialized
+    hdr.mpls[0].ttl = tmp_mpls_headers2.ttl ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1911): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers0.label may be uninitialized
+    hdr.mpls[0].label = tmp_mpls_headers0.label;
+                        ^^^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1912): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers0.exp may be uninitialized
+    hdr.mpls[0].exp = tmp_mpls_headers0.exp ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1914): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers0.ttl may be uninitialized
+    hdr.mpls[0].ttl = tmp_mpls_headers0.ttl ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1920): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers0.label may be uninitialized
+    hdr.mpls[0].label = tmp_mpls_headers0.label;
+                        ^^^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1921): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers0.exp may be uninitialized
+    hdr.mpls[0].exp = tmp_mpls_headers0.exp ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1922): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers0.bos may be uninitialized
+    hdr.mpls[0].bos = tmp_mpls_headers0.bos ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1923): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers1.label may be uninitialized
+    hdr.mpls[1].label = tmp_mpls_headers1.label;
+                        ^^^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1924): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers1.exp may be uninitialized
+    hdr.mpls[1].exp = tmp_mpls_headers1.exp ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1926): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers1.ttl may be uninitialized
+    hdr.mpls[1].ttl = tmp_mpls_headers1.ttl ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1932): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers0.label may be uninitialized
+    hdr.mpls[0].label = tmp_mpls_headers0.label;
+                        ^^^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1933): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers0.exp may be uninitialized
+    hdr.mpls[0].exp = tmp_mpls_headers0.exp ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1934): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers0.bos may be uninitialized
+    hdr.mpls[0].bos = tmp_mpls_headers0.bos ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1935): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers0.ttl may be uninitialized
+    hdr.mpls[0].ttl = tmp_mpls_headers0.ttl ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1936): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers1.label may be uninitialized
+    hdr.mpls[1].label = tmp_mpls_headers1.label;
+                        ^^^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1937): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers1.exp may be uninitialized
+    hdr.mpls[1].exp = tmp_mpls_headers1.exp ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1938): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers1.bos may be uninitialized
+    hdr.mpls[1].bos = tmp_mpls_headers1.bos ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1939): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers1.ttl may be uninitialized
+    hdr.mpls[1].ttl = tmp_mpls_headers1.ttl ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1940): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers2.label may be uninitialized
+    hdr.mpls[2].label = tmp_mpls_headers2.label;
+                        ^^^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1941): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers2.exp may be uninitialized
+    hdr.mpls[2].exp = tmp_mpls_headers2.exp ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1943): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers2.ttl may be uninitialized
+    hdr.mpls[2].ttl = tmp_mpls_headers2.ttl ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1949): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers0.label may be uninitialized
+    hdr.mpls[0].label = tmp_mpls_headers0.label;
+                        ^^^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1950): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers0.exp may be uninitialized
+    hdr.mpls[0].exp = tmp_mpls_headers0.exp ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1951): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers0.bos may be uninitialized
+    hdr.mpls[0].bos = tmp_mpls_headers0.bos ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1952): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers0.ttl may be uninitialized
+    hdr.mpls[0].ttl = tmp_mpls_headers0.ttl ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1953): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers1.label may be uninitialized
+    hdr.mpls[1].label = tmp_mpls_headers1.label;
+                        ^^^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1954): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers1.exp may be uninitialized
+    hdr.mpls[1].exp = tmp_mpls_headers1.exp ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1955): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers1.bos may be uninitialized
+    hdr.mpls[1].bos = tmp_mpls_headers1.bos ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1956): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers1.ttl may be uninitialized
+    hdr.mpls[1].ttl = tmp_mpls_headers1.ttl ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1957): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers2.label may be uninitialized
+    hdr.mpls[2].label = tmp_mpls_headers2.label;
+                        ^^^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1958): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers2.exp may be uninitialized
+    hdr.mpls[2].exp = tmp_mpls_headers2.exp ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1959): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers2.bos may be uninitialized
+    hdr.mpls[2].bos = tmp_mpls_headers2.bos ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1960): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers2.ttl may be uninitialized
+    hdr.mpls[2].ttl = tmp_mpls_headers2.ttl ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1961): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers3.label may be uninitialized
+    hdr.mpls[3].label = tmp_mpls_headers3.label;
+                        ^^^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1962): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers3.exp may be uninitialized
+    hdr.mpls[3].exp = tmp_mpls_headers3.exp ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_eg.p4(1964): [--Wwarn=uninitialized_use] warning: tmp_mpls_headers3.ttl may be uninitialized
+    hdr.mpls[3].ttl = tmp_mpls_headers3.ttl ;
+                      ^^^^^^^^^^^^^^^^^^^^^
+../sug_ig.p4(6376): warning: Target does not support default_action for ingress.process_ingress_sup.ingress_ipv4_sup (due to action profiles)
+    table ingress_ipv4_sup {
+          ^^^^^^^^^^^^^^^^
+../sug_ig.p4(6478): warning: Target does not support default_action for ingress.process_ingress_sup.ingress_ipv6_sup (due to action profiles)
+    table ingress_ipv6_sup {
+          ^^^^^^^^^^^^^^^^
+../sug_ig.p4(6568): warning: Target does not support default_action for ingress.process_ingress_sup.ingress_mac_sup (due to action profiles)
+    table ingress_mac_sup {
+          ^^^^^^^^^^^^^^^
